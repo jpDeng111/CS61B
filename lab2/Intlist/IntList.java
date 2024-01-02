@@ -101,7 +101,7 @@ public class IntList {
         IntList cat,head;
         cat = new IntList(0,null);
         head = cat;
-        if(A = null & B != null) {
+        if(A == null & B != null) {
             cat.first = B.first;
         }
         else {
