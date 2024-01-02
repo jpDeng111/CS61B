@@ -101,9 +101,15 @@ public class IntList {
         IntList cat,head;
         cat = new IntList(0,null);
         head = cat;
-        cat.first = A.first;
+        if(A = null & B != null) {
+            cat.first = B.first;
+        }
+        else {
+            cat.first = A.first;
+        }
         IntList pointer = A;
         int lengthOfB=0;
+
 //        while(pointer.rest !=null){
 //            pointer = pointer.rest;
 //            lengthOfB++;
