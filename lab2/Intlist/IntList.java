@@ -82,14 +82,21 @@ public class IntList {
 
     public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
-        IntList head = A;
-        while(head.rest != null){
-            head = head.rest;
+        IntList head;
+        if(A != null) {
+            head = A;
+            while (head.rest != null) {
+                head = head.rest;
+            }
+
+            head.rest = B;
+            head = A;
+        }
+        else{
+            head = B;
         }
 
-        head.rest = B;
-
-        return A;
+        return head;
     }
 
     /**
@@ -98,45 +105,70 @@ public class IntList {
      */
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
-        IntList cat,head;
+        IntList cat,head,pointer;
         cat = new IntList(0,null);
         head = cat;
         if(A == null & B != null) {
             cat.first = B.first;
+            pointer = B;
+//            head = pointer;
+            //     copy A to cat
+            while(pointer.rest != null){
+                cat.first = pointer.first;
+                pointer = pointer.rest;
+                IntList cat1 = new IntList(pointer.first, null);
+                cat.rest = cat1;
+                cat = cat1;
+            }
+
         }
-        else {
+        else if(A != null & B !=null) {
             cat.first = A.first;
-        }
-        IntList pointer = A;
-        int lengthOfB=0;
+            pointer = A;
+            //     copy A to cat
+            head = cat;
+            while (pointer.rest != null) {
+                cat.first = pointer.first;
+                pointer = pointer.rest;
+                IntList cat1 = new IntList(pointer.first, null);
+                cat.rest = cat1;
+                cat = cat1;
+            }
+            pointer = B;
+            cat.rest = new IntList(0,null);
+            cat = cat.rest;
+            //     copy B to cat
+            while(pointer.rest != null){
+                cat.first = pointer.first;
+                pointer = pointer.rest;
+                IntList cat1 = new IntList(pointer.first, null);
+                cat.rest = cat1;
+                cat = cat1;
+            }
 
-//        while(pointer.rest !=null){
-//            pointer = pointer.rest;
-//            lengthOfB++;
-//        }
-//     copy A to cat
-        while(pointer.rest != null){
-            cat.first = pointer.first;
-            pointer = pointer.rest;
-            IntList cat1 = new IntList(pointer.first, null);
-            cat.rest = cat1;
-            cat = cat1;
         }
-
-        pointer = B;
-        IntList sbHead = new IntList(B.first,null);
-        cat.rest = sbHead;
-        cat = cat.rest;
-        while(pointer.rest != null){
-            cat.first = pointer.first;
-            pointer = pointer.rest;
-            IntList cat1 = new IntList(pointer.first, null);
-            cat.rest = cat1;
-            cat = cat1;
-        }
+        else if(A == null & B == null){
+            return null;
+            }
+        else {
+                cat.first = A.first;
+                pointer = A;
+//            head = pointer;
+                //     copy A to cat
+                while(pointer.rest != null){
+                    cat.first = pointer.first;
+                    pointer = pointer.rest;
+                    IntList cat1 = new IntList(pointer.first, null);
+                    cat.rest = cat1;
+                    cat = cat1;
+                }
+            }
 
         return head;
-    }
+
+        }
+
+
 
 
 
