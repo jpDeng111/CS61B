@@ -2,30 +2,59 @@
 public class ArrayDeque<T> {
 
     private Object[] array;
-    int size = array.length;// The effective length of the array.
+    int size = 0;// The effective length of the array.
+    int length = 100;// The space of the array.
+    /*Didn't use the pointer variable-- It must exist because to
+    * decrease the times that I create new array space, we need to
+    * create large space at first and don't have tp create new space
+    * until the space is filled*/
+    int numOfPointer = size-1;
+    int pointer=size-1;// = numOfPointer%size but initiallly the numOfPointer =0
 
+    /*Move the pointer rightwards for one unit*/
+    public void plusOne(){
+        if(isEmpty()){
+            return;
+        }
+        else{
+            pointer = (pointer+1)%numOfPointer;
+        }
 
-    public ArrayDeque() {
-        array = (T[]) new Object();
     }
+    /*Move the pointer leftwards*/
+    public void minusOne(){
+        if(isEmpty()){
+            return;
+        }
+        else{
+            pointer = Math.abs(pointer-1)%numOfPointer;
+        }
+    }
+    /*Default Constructor */
+    public ArrayDeque() {
 
+        array = (T[]) new Object[length];
+    }
+    /*Constructor with an argument*/
     public ArrayDeque(int newSize) {
         array = (T[]) new Object[newSize];
     }
 
     public T[] getArray() {
-        return (T[])array;
+        return (T[]) array;
     }
 
     public int size() {
         return size;
     }
 
+    /*Using the circular topology to build the deque*/
+
     public T get(int index) {
         if (index >= size || index < 0) {
             return null;
         } else {
-            return array[index];
+            return (T) array[index];
         }
     }
     /*Using boolean variable to judge if the deque is empty*/
@@ -36,38 +65,96 @@ public class ArrayDeque<T> {
             return false;
         }
     }
+    /*If the array is full, enlarge the space of the array*/
+     public void grow(){
+         T[] array_new = (T[]) new Object[length*2];
+         length *= 2;
+         System.arraycopy(this.array,0,array_new,0,size);
+         this.array = array_new;
+     }
 
-    /*How do I know it's a deqUe?*/
+     /*If the array is too empty, then shrink the array*/
+    public void shrink(){
+        T[] array_new = (T[]) new Object[length/2];
+        length /= 2;
+        System.arraycopy(this.array,0,array_new,0,size);
+        this.array = array_new;
+    }
+
+    /*for addFirst and removeFirst. step >0, move right; step < 0, move left
+    * we only need to move one step at a time */
+    private void move(int step){//step can only be 1 and -1
+        //Didn't realize that I used recursion in the function
+        if(size<length & size>=length/2){
+            if(step == 1){
+                for(int i=size-1; i>0; i--){
+                    array[i+1] = array[i];
+                }
+                size += 1;
+            }
+            else if (step == -1){
+                for(int i=0; i<size; i++){
+                    array[i] = array[i+1];
+                }//Why did I feel disgusted? It's not hard. Just some easy operations stack together.
+                size -= 1;
+            }
+
+        }
+        else{
+            if (size >= length){
+                grow();
+                move(1);
+                /*Move right step*/
+            }
+            if(size < length/2){
+                shrink();
+                move(-1);
+                /*Move the left step*/
+
+            }
+
+        }
+    }
+    /*How do I know it's a deque?*/
     public void addLast(T item) {
-        if (isEmpty()) {
-            T[] array_temp = (T[]) new Object[1];
-            array_temp[0] = item;
-            this.array = array_temp;
+        if (isEmpty()){
+            this.array[0] = item;
             size += 1;
-        } else {
-            ArrayDeque arrayTemp = new ArrayDeque(size + 1);
-            T[] array_temp = (T[]) arrayTemp.getArray();
-            System.arraycopy(this.array, 0, array_temp, 0, size);
-            array_temp[size] = item;
-            this.array = array_temp;
-            size += 1;
+        }
+        else{
+            if(size<length){
+                size += 1;
+                array[size - 1] = item;
+            }
+            else{
+
+                grow();
+                array[size] = item;
+                size += 1;
+            }
         }
     }
 
     /*add the element item to the head of the array*/
     public void addFirst(T item) {
-        if (isEmpty()) {
-            T[] array_temp = (T[]) new Object[1];
-            array_temp[0] = item;
-            this.array = array_temp;
+        if(isEmpty()){
+            array[0] = item;
             size += 1;
-        } else {
-            ArrayDeque arrayTemp = new ArrayDeque(size + 1);
-            T[] array_temp = (T[]) arrayTemp.getArray();
-            System.arraycopy(this.array, 0, array_temp, 1, size);
-            array_temp[0] = item;
-            this.array = array_temp;
-            size += 1;
+        }
+        else{
+            if(size <length) {
+                for (int i = size - 1; i >= 0; i--) {
+                    array[i + 1] = array[i];
+                }
+                array[0] = item;
+                size += 1;
+            }
+            else{//The array is full before doing it
+                grow();//this operation runs competely
+                move(1);// size has incremented in the function
+                array[0] = item;
+                size += 1;
+            }
         }
 
     }
@@ -79,19 +166,16 @@ public class ArrayDeque<T> {
         } else if (size == 1) {
             T temp = (T) array[0];
             this.array = null;
-            size -= 1;
-
+            size = 0;
             return temp;
         } else {
-            size -= 1;
-            T[] array_temp = (T[]) Object(size);
-            T temp = (T) this.array[0];
-            System.arraycopy(this.array, 1, array_temp, 0, size);
-            array = array_temp;
+            T temp = (T) array[0];
+            move(-1);
             return temp;
         }
 
     }
+
     /*Remove the last element in the array*/
     public T removeLast() {
         if (isEmpty()) {
@@ -102,11 +186,8 @@ public class ArrayDeque<T> {
             size = 0;
             return temp;
         } else {
-            size -= 1;
-            T[] array_temp = (T[]) Object(size);
+            size -=1;
             T temp = (T) this.array[size];// get the last element
-            System.arraycopy(this.array, 0, array_temp, 0, size);
-            array = array_temp;
             return temp;
         }
     }
@@ -117,9 +198,6 @@ public class ArrayDeque<T> {
             System.out.print(" ");
         }
     }
-
-
-
 
 
 }
