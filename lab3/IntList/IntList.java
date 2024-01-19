@@ -11,11 +11,11 @@ public class IntList {
     /**
      * First element of list.
      */
-    public int first;
+    private int first;
     /**
      * Remaining elements of list.
      */
-    public IntList rest;
+    private IntList rest;
     int size = 0;
 
     /**
@@ -31,7 +31,7 @@ public class IntList {
      * A List with null rest, and first = 0.
      */
     public IntList() {
-    /* NOTE: public IntList () { }  would also work. */
+        /* NOTE: public IntList () { }  would also work. */
         this(0, null);
     }
 
@@ -83,9 +83,8 @@ public class IntList {
      */
 
     public static IntList dcatenate(IntList A, IntList B) {
-        //TODO:  fill in method
         IntList head;
-        if(A != null) {
+        if (A != null) {
             head = A;
             while (head.rest != null) {
                 head = head.rest;
@@ -93,11 +92,11 @@ public class IntList {
 
             head.rest = B;
             head = A;
-        }
-        else{
+
+        } else {
             head = B;
         }
-//        this.size = A.size+B.size;
+        //        this.size = A.size+B.size;
         return head;
     }
 
@@ -106,16 +105,16 @@ public class IntList {
      * * elements of B.  May NOT modify items of A.  Use 'new'.
      */
     public static IntList catenate(IntList A, IntList B) {
-        //TODO:  fill in method
-        IntList cat,head,pointer;
-        cat = new IntList(0,null);
+
+        IntList cat, head, pointer;
+        cat = new IntList(0, null);
         head = cat;
-        if(A == null & B != null) {
+        if (A == null & B != null) {
             cat.first = B.first;
             pointer = B;
-//            head = pointer;
+            //            head = pointer;
             //     copy A to cat
-            while(pointer.rest != null){
+            while (pointer.rest != null) {
                 cat.first = pointer.first;
                 pointer = pointer.rest;
                 IntList cat1 = new IntList(pointer.first, null);
@@ -123,8 +122,7 @@ public class IntList {
                 cat = cat1;
             }
 
-        }
-        else if(A != null & B !=null) {
+        } else if (A != null & B != null) {
             cat.first = A.first;
             pointer = A;
             //     copy A to cat
@@ -137,10 +135,10 @@ public class IntList {
                 cat = cat1;
             }
             pointer = B;
-            cat.rest = new IntList(0,null);
+            cat.rest = new IntList(0, null);
             cat = cat.rest;
             //     copy B to cat
-            while(pointer.rest != null){
+            while (pointer.rest != null) {
                 cat.first = pointer.first;
                 pointer = pointer.rest;
                 IntList cat1 = new IntList(pointer.first, null);
@@ -148,27 +146,23 @@ public class IntList {
                 cat = cat1;
             }
 
-        }
-        else if(A == null & B == null){
+        } else if (A == null & B == null) {
             return null;
+        } else {
+            cat.first = A.first;
+            pointer = A;
+            while (pointer.rest != null) {
+                cat.first = pointer.first;
+                pointer = pointer.rest;
+                IntList cat1 = new IntList(pointer.first, null);
+                cat.rest = cat1;
+                cat = cat1;
             }
-        else {
-                cat.first = A.first;
-                pointer = A;
-//            head = pointer;
-                //     copy A to cat
-                while(pointer.rest != null){
-                    cat.first = pointer.first;
-                    pointer = pointer.rest;
-                    IntList cat1 = new IntList(pointer.first, null);
-                    cat.rest = cat1;
-                    cat = cat1;
-                }
-            }
+        }
 
         return head;
 
-        }
+    }
 
     /**
      * DO NOT MODIFY ANYTHING BELOW THIS LINE! Many of the concepts below here
@@ -202,26 +196,28 @@ public class IntList {
         return result;
     }
 
-//    public IntList getRest(){
-//           return this.rest;
-//    }
-    public static IntList reverse(IntList array){
-        if(array == null){
+    //    public IntList getRest(){
+    //           return this.rest;
+    //    }
+    public static IntList reverse(IntList array) {
+        if (array == null) {
             return null;
         }
-        if(array.rest == null){
+        if (array.rest == null) {
             return new IntList(array.first, null);
-        }
-        else{
+
+        } else {
             IntList pointer = new IntList();
             IntList previous = null;
-            IntList new_node= new IntList(array.first,array.rest);
-            while(pointer != null){ //premise: the IntList can be null
-                pointer = new_node.rest;
-                new_node.rest = previous;
-                previous = new_node;
-                new_node = pointer;
-            }// bug:infinite loop
+            IntList newNode = new IntList(array.first, array.rest);
+            while (pointer != null) {
+                //premise: the IntList can be null
+                pointer = newNode.rest;
+                newNode.rest = previous;
+                previous = newNode;
+                newNode = pointer;
+            }
+            // bug:infinite loop
             return previous;
         }
 
@@ -319,25 +315,25 @@ public class IntList {
         return out.toString();
     }
 
-    public boolean equals(IntList obj){
-        if(this.size != obj.size){
+    public boolean equals(IntList obj) {
+        if (this.size != obj.size) {
             return false;
         }
-        if(this.size == 0){
+        if (this.size == 0) {
             return true;
         }
 
         IntList p1 = new IntList();
         IntList p2 = new IntList();
 
-        p1 = this.rest;//I don't think that it's available to point to the head of the list
+        p1 = this.rest; //I don't think that it's available to point to the head of the list
         p2 = obj.rest;
 
-        if(this.first != obj.first){
+        if (this.first != obj.first) {
             return false;
         }
-        while(p1 != null){
-            if(p1.first != p2.first){
+        while (p1 != null) {
+            if (p1.first != p2.first) {
                 return false;
             }
             p1 = p1.rest;
