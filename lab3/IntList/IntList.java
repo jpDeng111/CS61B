@@ -11,11 +11,13 @@ public class IntList {
     /**
      * First element of list.
      */
+<<<<<<< HEAD
     private int first;
     /**
      * Remaining elements of list.
      */
     private IntList rest;
+
     int size = 0;
 
     /**
@@ -31,7 +33,9 @@ public class IntList {
      * A List with null rest, and first = 0.
      */
     public IntList() {
+
         /* NOTE: public IntList () { }  would also work. */
+
         this(0, null);
     }
 
@@ -83,8 +87,10 @@ public class IntList {
      */
 
     public static IntList dcatenate(IntList A, IntList B) {
+<<<<<<< HEAD
         IntList head;
         if (A != null) {
+
             head = A;
             while (head.rest != null) {
                 head = head.rest;
@@ -92,11 +98,13 @@ public class IntList {
 
             head.rest = B;
             head = A;
+<<<<<<< HEAD
 
         } else {
             head = B;
         }
         //        this.size = A.size+B.size;
+
         return head;
     }
 
@@ -105,6 +113,7 @@ public class IntList {
      * * elements of B.  May NOT modify items of A.  Use 'new'.
      */
     public static IntList catenate(IntList A, IntList B) {
+<<<<<<< HEAD
 
         IntList cat, head, pointer;
         cat = new IntList(0, null);
@@ -122,6 +131,7 @@ public class IntList {
                 cat = cat1;
             }
 
+<<<<<<< HEAD
         } else if (A != null & B != null) {
             cat.first = A.first;
             pointer = A;
@@ -135,6 +145,7 @@ public class IntList {
                 cat = cat1;
             }
             pointer = B;
+<<<<<<< HEAD
             cat.rest = new IntList(0, null);
             cat = cat.rest;
             //     copy B to cat
@@ -146,6 +157,7 @@ public class IntList {
                 cat = cat1;
             }
 
+<<<<<<< HEAD
         } else if (A == null & B == null) {
             return null;
         } else {
@@ -163,6 +175,7 @@ public class IntList {
         return head;
 
     }
+
 
     /**
      * DO NOT MODIFY ANYTHING BELOW THIS LINE! Many of the concepts below here
@@ -196,6 +209,7 @@ public class IntList {
         return result;
     }
 
+<<<<<<< HEAD
     //    public IntList getRest(){
     //           return this.rest;
     //    }
@@ -315,6 +329,7 @@ public class IntList {
         return out.toString();
     }
 
+<<<<<<< HEAD
     public boolean equals(IntList obj) {
         if (this.size != obj.size) {
             return false;
@@ -326,6 +341,7 @@ public class IntList {
         IntList p1 = new IntList();
         IntList p2 = new IntList();
 
+<<<<<<< HEAD
         p1 = this.rest; //I don't think that it's available to point to the head of the list
         p2 = obj.rest;
 
