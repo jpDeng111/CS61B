@@ -1,5 +1,5 @@
 
-public class ArrayDeque<T> {
+public class ArrayDeque<T>  implements Deque<T> {
 
     private Object[] array;
     int size = 0;// The effective length of the array.
@@ -44,12 +44,13 @@ public class ArrayDeque<T> {
         return (T[]) array;
     }
 
+    @Override
     public int size() {
         return size;
     }
 
     /*Using the circular topology to build the deque*/
-
+    @Override
     public T get(int index) {
         if (index >= size || index < 0) {
             return null;
@@ -58,6 +59,7 @@ public class ArrayDeque<T> {
         }
     }
     /*Using boolean variable to judge if the deque is empty*/
+    @Override
     public boolean isEmpty() {
         if (size == 0) {
             return true;
@@ -116,6 +118,7 @@ public class ArrayDeque<T> {
         }
     }
     /*How do I know it's a deque?*/
+    @Override
     public void addLast(T item) {
         if (isEmpty()){
             this.array[0] = item;
@@ -136,6 +139,7 @@ public class ArrayDeque<T> {
     }
 
     /*add the element item to the head of the array*/
+    @Override
     public void addFirst(T item) {
         if(isEmpty()){
             array[0] = item;
@@ -160,6 +164,7 @@ public class ArrayDeque<T> {
     }
 
     /*Removes and returns the item at the front of the deque. If no such item exists, returns null.*/
+    @Override
     public T removeFirst() {
         if (isEmpty()) {
             return null;
@@ -177,6 +182,7 @@ public class ArrayDeque<T> {
     }
 
     /*Remove the last element in the array*/
+    @Override
     public T removeLast() {
         if (isEmpty()) {
             return null;
@@ -192,6 +198,7 @@ public class ArrayDeque<T> {
         }
     }
     /*Print all the elements in the deque*/
+    @Override
     public void printDeque(){
         for(int i=0; i<size; i++){
             System.out.print(this.array[i]);
