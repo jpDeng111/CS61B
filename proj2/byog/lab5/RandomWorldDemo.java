@@ -50,7 +50,6 @@ public class RandomWorldDemo {
 
         TETile[][] randomTiles = new TETile[WIDTH][HEIGHT];
         fillWithRandomTiles(randomTiles);
-
         ter.renderFrame(randomTiles);
     }
 

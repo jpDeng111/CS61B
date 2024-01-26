@@ -96,6 +96,7 @@ public class TETile {
         StdDraw.filledSquare(x + 0.5, y + 0.5, 0.5);
         StdDraw.setPenColor(textColor);
         StdDraw.text(x + 0.5, y + 0.5, Character.toString(character()));
+
     }
 
     /** Character representation of the tile. Used for drawing in text mode.
@@ -106,7 +107,7 @@ public class TETile {
     }
 
     /**
-     * Description of the tile. Useful for displaying mouseover text or
+  ；   * Description of the tile. Useful for displaying mouseover text or
      * testing that two tiles represent the same type of thing.
      * @return description of the tile
      */
@@ -136,7 +137,7 @@ public class TETile {
     }
 
     private static int newColorValue(int v, int dv, Random r) {
-        int rawNewValue = v + RandomUtils.uniform(r, -dv, dv + 1);
+        int rawNewValue = v + RandomUtils.uniform(r, -dv, dv + 1); // What's this variable?
 
         // make sure value doesn't fall outside of the range 0 to 255.
         int newValue = Math.min(255, Math.max(0, rawNewValue));

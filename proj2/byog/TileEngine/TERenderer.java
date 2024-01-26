@@ -32,13 +32,13 @@ public class TERenderer {
         this.height = h;
         this.xOffset = xOff;
         this.yOffset = yOff;
-        StdDraw.setCanvasSize(width * TILE_SIZE, height * TILE_SIZE);
+        StdDraw.setCanvasSize(width * TILE_SIZE, height * TILE_SIZE); // set the canvas
         Font font = new Font("Monaco", Font.BOLD, TILE_SIZE - 2);
-        StdDraw.setFont(font);      
-        StdDraw.setXscale(0, width);
-        StdDraw.setYscale(0, height);
+        StdDraw.setFont(font);  // set the font
+        StdDraw.setXscale(0, width);  // set the width/xscale
+        StdDraw.setYscale(0, height);  // set the height/yscale
 
-        StdDraw.clear(new Color(0, 0, 0));
+        StdDraw.clear(new Color(0, 0, 0)); // don't understand
 
         StdDraw.enableDoubleBuffering();
         StdDraw.show();
