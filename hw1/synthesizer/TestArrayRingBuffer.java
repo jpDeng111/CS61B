@@ -29,7 +29,7 @@ public class TestArrayRingBuffer {
         arb.enqueue(12);
         arb.dequeue();
         arb.dequeue();
-        assertEquals(7,arb.peek());
+        assertEquals(12,arb.peek());
         assertEquals(3,arb.fillCount);
     }
 

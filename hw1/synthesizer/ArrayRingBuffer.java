@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-//TODO: Make sure to make this class and all of its methods public
-//TODO: Make sure to make this class extend AbstractBoundedQueue<t>
 public class ArrayRingBuffer<T>  extends AbstractBoundedQueue<T>{
     /* Index for the next dequeue or peek. */
     private int first;            // index for the next dequeue or peek
@@ -14,16 +12,11 @@ public class ArrayRingBuffer<T>  extends AbstractBoundedQueue<T>{
     private int last;
     /* Array for storing the buffer data. */
     private T[] rb;
-    private List<T> list = new ArrayList<>(); // for the creation of the array rb []
+
     /**
      * Create a new ArrayRingBuffer with the given capacity.
      */
     public ArrayRingBuffer(int capacity) {
-        // TODO: Create new array with capacity elements.
-        //       first, last, and fillCount should all be set to 0.
-        //       this.capacity should be set appropriately. Note that the local variable
-        //       here shadows the field we inherit from AbstractBoundedQueue, so
-        //       you'll need to use this.capacity to set the capacity.
         first = 0;
         last = 0;
         fillCount = 0; // should I use this.fillCount?
@@ -61,9 +54,9 @@ public class ArrayRingBuffer<T>  extends AbstractBoundedQueue<T>{
     public T dequeue() {
         // TODO: Dequeue the first item. Don't forget to decrease fillCount and update
         if (fillCount > 0) { // I think it's not necessary to delete the element in the array, just ignoring is ok
-            last = (last + this.capacity -1) % this.capacity;
+            first = (first + 1) % this.capacity;
             fillCount -= 1;
-            return rb[(last+1)%this.capacity];
+            return rb[(first - 1 + capacity) % this.capacity];
         }
         else {
             throw new RuntimeException("Ring buffer underflow");
@@ -76,7 +69,7 @@ public class ArrayRingBuffer<T>  extends AbstractBoundedQueue<T>{
     @Override
     public T peek() {
         // TODO: Return the first item. None of your instance variables should change.
-        return rb[(last + this.capacity -1) % this.capacity];
+        return rb[first];
 
     }
 

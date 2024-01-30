@@ -53,7 +53,7 @@ public class GuitarPlayer {
                 strings[i].tic();
             }
         }
-    }
+    }// what can the algorithm do?
 
     private double sample() {
         double sum = 0.0f;
@@ -81,7 +81,7 @@ public class GuitarPlayer {
             for (int j = 0; j < tracks[i].size(); j++) {
                 track.add(tracks[i].get(j));
             }
-        }
+        } // feel confused. why the different tracks on one track?
 
         long tick = 0;
         for (int i = 0; i < track.size(); i++) {
