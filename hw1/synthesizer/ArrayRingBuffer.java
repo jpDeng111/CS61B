@@ -13,6 +13,8 @@ public class ArrayRingBuffer<T>  extends AbstractBoundedQueue<T>{
     /* Array for storing the buffer data. */
     private T[] rb;
 
+    private int index;
+
     /**
      * Create a new ArrayRingBuffer with the given capacity.
      */
@@ -73,5 +75,26 @@ public class ArrayRingBuffer<T>  extends AbstractBoundedQueue<T>{
 
     }
 
-    // TODO: When you get to part 5, implement the needed code to support iteration.
+    @Override
+    public boolean hasNext() {
+        if (index < last-1 ) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public T next() {
+        if (!hasNext()) {
+            return null;
+        }
+        return rb[index++];
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        index = first;
+        return null;
+    }
+
 }

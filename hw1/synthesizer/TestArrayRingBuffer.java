@@ -33,6 +33,19 @@ public class TestArrayRingBuffer {
         assertEquals(3,arb.fillCount);
     }
 
+    @Test
+    public void testIterable() {
+        ArrayRingBuffer arb = new ArrayRingBuffer(10);
+        arb.enqueue(2);
+        arb.enqueue(5);
+        arb.enqueue(7);
+        arb.enqueue(9);
+        arb.enqueue(12);
+        while(arb.hasNext()) {
+            System.out.print(arb.next());
+        }
+    }
+
     /** Calls tests for ArrayRingBuffer. */
     public static void main(String[] args) {
         jh61b.junit.textui.runClasses(TestArrayRingBuffer.class);
